@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
+
 public class Cab {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int speed;
-    private boolean booked;
+    private int perKmRate;
+    private boolean available;
 
     public int getId() {
         return id;
@@ -23,20 +23,25 @@ public class Cab {
         this.id = id;
     }
 
-    public int getSpeed() {
-        return speed;
+
+    @OneToOne
+    @JoinColumn
+    private Driver driver;
+
+    public int getPerKmRate() {
+        return perKmRate;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void setPerKmRate(int perKmRate) {
+        this.perKmRate = perKmRate;
     }
 
-    public boolean isBooked() {
-        return booked;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public Driver getDriver() {
@@ -47,19 +52,18 @@ public class Cab {
         this.driver = driver;
     }
 
-    public List<TripBooking> getTripBookingList() {
-        return tripBookingList;
+    public Cab(int id, int perKmRate, boolean available, Driver driver) {
+        this.id = id;
+        this.perKmRate = perKmRate;
+        this.available = available;
+        this.driver = driver;
     }
 
-    public void setTripBookingList(List<TripBooking> tripBookingList) {
-        this.tripBookingList = tripBookingList;
+    public Cab(int perKmRate, boolean available) {
+        this.perKmRate = perKmRate;
+        this.available = available;
     }
 
-    @OneToOne
-    @JoinColumn
-    private Driver driver;
-
-    @OneToMany(mappedBy = "cab", cascade = CascadeType.ALL)
-    List<TripBooking> tripBookingList = new ArrayList<>();
-
+    public Cab() {
+    }
 }
