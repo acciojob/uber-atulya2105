@@ -1,28 +1,32 @@
 package com.driver.model;
 
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table
+@Table(name="admin")
 public class Admin {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private int adminId;
+    @Column(unique = true)
     private String username;
     private String password;
 
-
-    public int getId() {
-        return id;
+    public Admin(int adminId, String username, String password) {
+        this.adminId = adminId;
+        this.username = username;
+        this.password = password;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Admin() {
+    }
+
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
     }
 
     public String getUsername() {
@@ -39,19 +43,5 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Admin(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public Admin(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    public Admin() {
     }
 }

@@ -3,9 +3,9 @@ package com.driver.controllers;
 import com.driver.model.Admin;
 import com.driver.model.Customer;
 import com.driver.model.Driver;
-import com.driver.repository.AdminRepository;
+//import com.driver.repository.AdminRepository;
 import com.driver.services.AdminService;
-import com.driver.services.impl.AdminServiceImpl;
+//import com.driver.services.impl.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +19,7 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
-	@Autowired
-	private AdminRepository adminRepository;
+
 
 	@PostMapping("/register")
 	public ResponseEntity<Void> registerAdmin(@RequestBody Admin admin){
@@ -31,7 +30,8 @@ public class AdminController {
 	@PutMapping("/update")
 	public ResponseEntity<Admin> updateAdminPassword(@RequestParam Integer adminId, @RequestParam String password){
 
-		return new ResponseEntity<>(adminService.updatePassword(adminId,password), HttpStatus.OK);
+		Admin updatedAdmin = adminService.updatePassword(adminId,password);
+		return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete")

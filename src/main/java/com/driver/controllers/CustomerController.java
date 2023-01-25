@@ -2,7 +2,7 @@ package com.driver.controllers;
 
 import com.driver.model.Customer;
 import com.driver.model.TripBooking;
-import com.driver.repository.CustomerRepository;
+//import com.driver.repository.CustomerRepository;
 import com.driver.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,7 @@ public class CustomerController {
 
 	@Autowired
 	CustomerService customerService;
-	@Autowired
-	private CustomerRepository customerRepository;
+
 
 	@PostMapping("/register")
 	public ResponseEntity<Void> registerCustomer(@RequestBody Customer customer){
@@ -26,6 +25,7 @@ public class CustomerController {
 
 	@DeleteMapping("/delete")
 	public void deleteCustomer(@RequestParam Integer customerId){
+		customerService.deleteCustomer(customerId);
 	}
 
 	@PostMapping("/bookTrip")
@@ -37,10 +37,12 @@ public class CustomerController {
 
 	@DeleteMapping("/complete")
 	public void completeTrip(@RequestParam Integer tripId){
+		customerService.completeTrip(tripId);
 
 	}
 
 	@DeleteMapping("/cancelTrip")
 	public void cancelTrip(@RequestParam Integer tripId){
+		customerService.cancelTrip(tripId);
 	}
 }
